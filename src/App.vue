@@ -15,18 +15,27 @@
 </template>
 
 <script setup>
+// import k nói làm gì đúng hong
 import { onMounted, ref, watch } from 'vue';
 
+// đặt 3 biến với giá trị mặc định, list to select là 1 ref kiểu mảng
 const selectedId = ref('');
 const listToSelect = ref([]);
 const selectedObject = ref('');
 
+// hàm này chạy khi bật web để lấy danh sách id | name của users để hiển thị lên select, async await tikitaka với nhau để múa lửa 
 const getParentSelectBox = async() => {
+    // thằng res chờ fetch users để gán giá trị vào nó
     const res = await fetch('https://jsonplaceholder.typicode.com/users');
+    
+    // thằng arrays chờ công việc res.json() đồng nghĩa với việc chờ nó biến thành 1 cục json
     const arrays = await res.json();
+    
+    // gán giá trị vào listToSelect, ở đây vì listToSelect là 1 ref nên gán giá trị phải dùng `.value`
     listToSelect.value = arrays
 }
 
+// onMounted này chạy khi vào web
 onMounted(() => {
     getParentSelectBox();
     selectedId.value = listToSelect[0].value;
